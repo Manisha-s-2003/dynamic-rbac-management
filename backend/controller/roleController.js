@@ -2,7 +2,7 @@ const Role = require("../models/Role.js");
 // -------------------------------------------
 // Create new Role
 // -------------------------------------------
- const createRole = async (req, res) => {
+const createRole = async (req, res) => {
   try {
     const { role, moduleAccess, permissionAccess } = req.body;
 
@@ -31,7 +31,7 @@ const Role = require("../models/Role.js");
 // -------------------------------------------
 // Get all roles
 // -------------------------------------------
- const getRoles = async (req, res) => {
+const getRoles = async (req, res) => {
   try {
     const roles = await Role.find();
     res.status(200).json(roles);
@@ -43,7 +43,7 @@ const Role = require("../models/Role.js");
 // -------------------------------------------
 // Get a single role
 // -------------------------------------------
- const getRoleById = async (req, res) => {
+const getRoleById = async (req, res) => {
   try {
     const role = await Role.findById(req.params.id);
 
@@ -60,7 +60,7 @@ const Role = require("../models/Role.js");
 // -------------------------------------------
 // Update Role + Permissions
 // -------------------------------------------
- const updateRole = async (req, res) => {
+const updateRole = async (req, res) => {
   try {
     const { role, moduleAccess, permissionAccess } = req.body;
 
@@ -90,7 +90,7 @@ const Role = require("../models/Role.js");
 // -------------------------------------------
 // Delete Role (Only if not assigned to users)
 // -------------------------------------------
- const deleteRole = async (req, res) => {
+const deleteRole = async (req, res) => {
   try {
     await Role.findByIdAndDelete(req.params.id);
 
@@ -102,7 +102,7 @@ const Role = require("../models/Role.js");
 module.exports = {
   createRole,
   getRoles,
-    getRoleById,
-    updateRole,
-    deleteRole,
+  getRoleById,
+  updateRole,
+  deleteRole,
 };
