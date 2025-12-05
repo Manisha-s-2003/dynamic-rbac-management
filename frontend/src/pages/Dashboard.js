@@ -14,15 +14,24 @@ import {
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { AuthContext } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 import { Link as RouterLink } from "react-router-dom";
 import { can } from "../utils/checkAccess";
 
 export default function Dashboard() {
-  const { role, logout, user } = useContext(AuthContext);
+  const { role, logout, user, token } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  // Redirect if not authenticated
+  if (!token) {
+    navigate("/login");
+    return null;
+  }
 
   const dashboardCards = [];
 
-  if (can(role, "donor", "view")) {
+  // Check permissions - role is a string like "Admin", "Manager", etc.
+  if (can(user, "donor", "view")) {
     dashboardCards.push({
       title: "Manage Donors",
       description: "View and manage donor information",
@@ -31,7 +40,7 @@ export default function Dashboard() {
     });
   }
 
-  if (can(role, "donation", "view")) {
+  if (can(user, "donation", "view")) {
     dashboardCards.push({
       title: "Manage Donations",
       description: "View and manage donation records",
@@ -63,7 +72,7 @@ export default function Dashboard() {
             Welcome, {user?.name || "User"}!
           </Typography>
           <Typography variant="subtitle1" color="textSecondary">
-            Role: <strong>{role?.role || "N/A"}</strong>
+            Role: <strong>{role || "N/A"}</strong>
           </Typography>
         </Box>
 

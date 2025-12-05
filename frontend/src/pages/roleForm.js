@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import {
-  Container,
   Paper,
   TextField,
   Button,
@@ -12,8 +11,6 @@ import {
   Grid,
   Card,
   CardContent,
-  AppBar,
-  Toolbar,
 } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import SaveIcon from "@mui/icons-material/Save";
@@ -106,22 +103,28 @@ const RoleForm = () => {
 
   return (
     <Box>
-      <AppBar position="static">
-        <Toolbar>
+      <Paper sx={{ p: 3, mb: 3 }}>
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            gap: 2,
+          }}
+        >
           <Button
-            color="inherit"
+            variant="outlined"
             startIcon={<ArrowBackIcon />}
             onClick={() => navigate("/roles")}
           >
             Back
           </Button>
-          <Typography variant="h6" sx={{ flexGrow: 1, ml: 2 }}>
+          <Typography variant="h5" fontWeight={600}>
             {id ? "Edit Role" : "Create New Role"}
           </Typography>
-        </Toolbar>
-      </AppBar>
+        </Box>
+      </Paper>
 
-      <Container maxWidth="md" sx={{ py: 4 }}>
+      <Box>
         <Paper elevation={3} sx={{ p: 4 }}>
           {error && (
             <Box
@@ -237,7 +240,7 @@ const RoleForm = () => {
             </Box>
           </form>
         </Paper>
-      </Container>
+      </Box>
     </Box>
   );
 };

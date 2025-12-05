@@ -17,7 +17,7 @@ export default function Register() {
     name: "",
     email: "",
     password: "",
-    roleId: "",
+    role: "",
   });
   const [roles, setRoles] = useState([]);
   const [error, setError] = useState("");
@@ -134,15 +134,15 @@ export default function Register() {
               label="Select Role"
               margin="normal"
               variant="outlined"
-              value={form.roleId}
-              onChange={(e) => setForm({ ...form, roleId: e.target.value })}
+              value={form.role}
+              onChange={(e) => setForm({ ...form, role: e.target.value })}
               required
             >
               <MenuItem value="">
                 <em>Select a role</em>
               </MenuItem>
               {roles.map((r) => (
-                <MenuItem key={r._id} value={r._id}>
+                <MenuItem key={r._id} value={r.role}>
                   {r.role}
                 </MenuItem>
               ))}

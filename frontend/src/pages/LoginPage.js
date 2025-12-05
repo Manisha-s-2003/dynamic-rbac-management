@@ -1,4 +1,5 @@
 import { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Container,
   Paper,
@@ -14,6 +15,7 @@ import { AuthContext } from "../context/AuthContext";
 
 export default function Login() {
   const { login } = useContext(AuthContext);
+  const navigate = useNavigate();
   const [form, setForm] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -24,7 +26,9 @@ export default function Login() {
     setLoading(true);
     try {
       const res = await api.post("/auth/login", form);
+      console.log("Login response:", res.data); // Debug log
       login(res.data);
+      navigate("/dashboard");
     } catch (err) {
       setError(err.response?.data?.message || "Login failed. Please try again.");
     } finally {

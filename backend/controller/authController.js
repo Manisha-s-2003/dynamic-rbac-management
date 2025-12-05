@@ -1,4 +1,5 @@
 const User = require("../models/User");
+const Role = require("../models/Role");
 const jwt = require("jsonwebtoken");
 
 const login = async (req, res) => {
@@ -12,6 +13,11 @@ const login = async (req, res) => {
     if (!isMatch)
       return res.status(401).json({ message: "Incorrect password" });
 
+    // 🔥 Fetch full role permissions
+    const roleDoc = await Role.findOne({ role: user.role });
+    if (!roleDoc)
+      return res.status(404).json({ message: "Role not found in DB" });
+
     const token = jwt.sign(
       { userId: user._id, role: user.role },
       "SECRET123",
@@ -21,13 +27,17 @@ const login = async (req, res) => {
     res.json({
       message: "Login successful",
       token,
-      user,
+      user: {
+        ...user.toObject(),
+        roleDetails: roleDoc,  // 🔥 Send full role details
+      },
     });
   } catch (err) {
     console.log(err);
     res.status(500).json({ message: "Server error" });
   }
 };
+
 
 const register = async (req, res) => {
   try {

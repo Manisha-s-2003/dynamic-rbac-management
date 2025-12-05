@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import {
-  Container,
   Paper,
   Button,
   Box,
@@ -17,8 +16,6 @@ import {
   DialogContent,
   DialogContentText,
   DialogActions,
-  AppBar,
-  Toolbar,
   CircularProgress,
 } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
@@ -75,24 +72,29 @@ const RoleList = () => {
 
   return (
     <Box>
-      <AppBar position="static">
-        <Toolbar>
-          <Typography variant="h6" sx={{ flexGrow: 1 }}>
+      <Paper sx={{ p: 3, mb: 3 }}>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          <Typography variant="h5" fontWeight={600}>
             Role Management
           </Typography>
           <Button
-            color="inherit"
+            variant="contained"
             startIcon={<AddIcon />}
             component={RouterLink}
             to="/add-role"
-            variant="outlined"
           >
             Add New Role
           </Button>
-        </Toolbar>
-      </AppBar>
+        </Box>
+      </Paper>
 
-      <Container maxWidth="md" sx={{ py: 4 }}>
+      <Box>
         {error && (
           <Box
             sx={{
@@ -177,7 +179,7 @@ const RoleList = () => {
             </Button>
           </Paper>
         )}
-      </Container>
+      </Box>
 
       {/* Delete Confirmation Dialog */}
       <Dialog open={openDialog} onClose={handleCloseDialog}>
